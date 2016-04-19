@@ -28,3 +28,15 @@ if has('python')
 elseif has('python3')
 
 endif
+
+" --------------------------------
+"  Expose commands
+" --------------------------------
+command BufferSwitchNext     call BufferSwitchNext()
+command BufferSwitchPrevious call BufferSwitchPrevious()
+
+" --------------------------------
+"  Key mapping
+" --------------------------------
+nnoremap <tab>   :BufferSwitchNext<CR>
+nnoremap <s-tab> :BufferSwitchPrevious<CR>
