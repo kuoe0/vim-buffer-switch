@@ -1,9 +1,15 @@
 " --------------------------------
 " Add our plugin to the path
 " --------------------------------
-python import sys
-python import vim
-python sys.path.append(vim.eval('expand("<sfile>:h")'))
+if has('python')
+	python import sys
+	python import vim
+	python sys.path.append(vim.eval('expand("<sfile>:h")'))
+elseif has('python3')
+	python3 import sys
+	python3 import vim
+	python3 sys.path.append(vim.eval('expand("<sfile>:h")'))
+endif
 
 " --------------------------------
 "  Variable (s)
@@ -15,30 +21,26 @@ endif
 " --------------------------------
 "  Function(s)
 " --------------------------------
-if has('python')
-    function! BufferSwitchNext()
-        python from buffer_switch import buffer_switch_next
-        python buffer_switch_next()
-    endfunc
+function! BufferSwitchNext()
+	python from buffer_switch import buffer_switch_next
+	python buffer_switch_next()
+endfunc
 
-    function! BufferSwitchPrevious()
-        python from buffer_switch import buffer_switch_previous
-        python buffer_switch_previous()
-    endfunc
+function! BufferSwitchPrevious()
+	python from buffer_switch import buffer_switch_previous
+	python buffer_switch_previous()
+endfunc
 
-    function! BufferSwitchToIndex(idx)
-        python from buffer_switch import buffer_switch_to_index
+function! BufferSwitchToIndex(idx)
+	python from buffer_switch import buffer_switch_to_index
 
-        redir => l:buffer_list
-        silent ls
-        redir END
+	redir => l:buffer_list
+	silent ls
+	redir END
 
-        let l:target_index = a:idx
-        python buffer_switch_to_index()
-    endfunc
-elseif has('python3')
-
-endif
+	let l:target_index = a:idx
+	python buffer_switch_to_index()
+endfunc
 
 " --------------------------------
 "  Expose commands
